@@ -1,0 +1,74 @@
+
+1.33.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+20000000 <start>:
+start:		LDR	R0, =intvec		@ R0 <- &intvec[0]
+20000000:	4817      	ldr	r0, [pc, #92]	@ (20000060 <shortvec+0x10>)
+		LDR	R1, =shortvec		@ R1 <- &shortvec[0]
+20000002:	4918      	ldr	r1, [pc, #96]	@ (20000064 <shortvec+0x14>)
+		MOV	R2, #8			@ R2 <- 8   (size parameter)
+20000004:	2208      	movs	r2, #8
+		BL	copyvec			@ copyvec (intvec, shortvec, 8)
+20000006:	f000 f801 	bl	2000000c <copyvec>
+		B	start
+2000000a:	e7f9      	b.n	20000000 <start>
+
+2000000c <copyvec>:
+
+@ void copyvec (int[] dst, short[] src, int size)
+copyvec:	PUSH	{R4, R5}		@ Kallad subrutin får inte skriva över R4 eller R5
+2000000c:	b430      	push	{r4, r5}
+
+		MOV	R3, #0			@ R3 <- i = 0
+2000000e:	2300      	movs	r3, #0
+
+20000010 <copyvecFOR>:
+copyvecFOR:	CMP	R3, R2			@ >if (i >= size)
+20000010:	4293      	cmp	r3, r2
+		BGE	copyvecENDFOR		@ >{ break; }
+20000012:	da05      	bge.n	20000020 <copyvecENDFOR>
+		LSL	R5, R3, #1		@ R5 <- i*2
+20000014:	005d      	lsls	r5, r3, #1
+		LDRSH	R4, [R1, R5]		@ R4 <- src[i] eller R4 <- [&src[0] + i*2]
+20000016:	5f4c      	ldrsh	r4, [r1, r5]
+		LSL	R5, R5, #1		@ R5 <- i*4 = R5*2
+20000018:	006d      	lsls	r5, r5, #1
+		STR	R4, [R0, R5]		@ R4 -> dst[i] eller R4  -> [&dst[0] + i*4]
+2000001a:	5144      	str	r4, [r0, r5]
+		ADD	R3, R3, #1		@ R3 <- i+1 = R3+1
+2000001c:	3301      	adds	r3, #1
+		B	copyvecFOR		@ Loop
+2000001e:	e7f7      	b.n	20000010 <copyvecFOR>
+
+20000020 <copyvecENDFOR>:
+
+copyvecENDFOR:	POP	{R4, R5}		@ Återställ R4 och R5
+20000020:	bc30      	pop	{r4, r5}
+		BX	LR			@ return; (utan returvärde)
+20000022:	4770      	bx	lr
+	...
+
+20000030 <intvec>:
+	...
+
+20000050 <shortvec>:
+20000050:	00020001 	.word	0x00020001
+20000054:	00040003 	.word	0x00040003
+20000058:	fffeffff 	.word	0xfffeffff
+2000005c:	fffcfffd 	.word	0xfffcfffd
+start:		LDR	R0, =intvec		@ R0 <- &intvec[0]
+20000060:	20000030 	.word	0x20000030
+		LDR	R1, =shortvec		@ R1 <- &shortvec[0]
+20000064:	20000050 	.word	0x20000050
+
+20000068 <__bss_end__>:
+	...
+
+20001000 <heap_low>:
+	...
+
+20001800 <heap_top>:
+	...

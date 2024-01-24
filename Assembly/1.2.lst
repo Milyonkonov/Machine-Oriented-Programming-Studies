@@ -1,0 +1,38 @@
+
+1.2.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+20000000 <s-0xa>:
+	LDR	R1,=c
+20000000:	4903      	ldr	r1, [pc, #12]	@ (20000010 <c+0x4>)
+	LDR	R2,=s
+20000002:	4a04      	ldr	r2, [pc, #16]	@ (20000014 <c+0x8>)
+	LDR	R3,=0
+20000004:	4b04      	ldr	r3, [pc, #16]	@ (20000018 <c+0xc>)
+	LDRSB	R0, [R1, R3]
+20000006:	56c8      	ldrsb	r0, [r1, r3]
+	STRH	R0, [R2]
+20000008:	8010      	strh	r0, [r2, #0]
+
+2000000a <s>:
+	...
+
+2000000c <c>:
+2000000c:	00000000 	.word	0x00000000
+	LDR	R1,=c
+20000010:	2000000c 	.word	0x2000000c
+	LDR	R2,=s
+20000014:	2000000a 	.word	0x2000000a
+	LDR	R3,=0
+20000018:	00000000 	.word	0x00000000
+
+2000001c <__bss_end__>:
+	...
+
+20001000 <heap_low>:
+	...
+
+20001800 <heap_top>:
+	...

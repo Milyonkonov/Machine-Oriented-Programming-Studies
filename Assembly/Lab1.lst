@@ -1,0 +1,112 @@
+
+Lab1.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+20000000 <main>:
+
+main: 
+		LDR R0, =src
+20000000:	4821      	ldr	r0, [pc, #132]	@ (20000088 <copyelements+0x12>)
+		LDR R1, =dst
+20000002:	4922      	ldr	r1, [pc, #136]	@ (2000008c <copyelements+0x16>)
+		MOV R2, #2
+20000004:	2202      	movs	r2, #2
+		MOV R3, #6
+20000006:	2306      	movs	r3, #6
+		BL copyelements
+20000008:	f000 f835 	bl	20000076 <copyelements>
+
+2000000c <loop>:
+loop: 		B loop
+2000000c:	e7fe      	b.n	2000000c <loop>
+	...
+
+20000030 <dst>:
+	...
+
+20000040 <src>:
+20000040:	00000001 	.word	0x00000001
+20000044:	00000002 	.word	0x00000002
+20000048:	00000003 	.word	0x00000003
+2000004c:	00000004 	.word	0x00000004
+20000050:	ffffffff 	.word	0xffffffff
+20000054:	fffffffe 	.word	0xfffffffe
+20000058:	fffffffd 	.word	0xfffffffd
+2000005c:	fffffffc 	.word	0xfffffffc
+
+20000060 <copyvec>:
+		.org 0x30
+dst: 		.space 16
+src: 		.word 1,2,3,4,-1,-2,-3,-4
+
+@ void copyvec(int src[], short dst[], int size)
+copyvec:	PUSH	{R4, R5, LR}		@ Kallad subrutin får inte skriva över R4 eller R5, spara returaddress
+20000060:	b530      	push	{r4, r5, lr}
+
+		MOV	R3, #0			@ R3 <- i = 0
+20000062:	2300      	movs	r3, #0
+
+20000064 <copyvecFOR>:
+copyvecFOR:	CMP	R3, R2			@ >if (i >= size)
+20000064:	4293      	cmp	r3, r2
+		BGE	copyvecENDFOR		@ >{ break; }
+20000066:	da05      	bge.n	20000074 <copyvecENDFOR>
+		LSL	R5, R3, #2		@ R5 <- i*4
+20000068:	009d      	lsls	r5, r3, #2
+		LDR	R4, [R0, R5]		@ R4 <- src[i] eller R4 <- [&src[0] + i*4]
+2000006a:	5944      	ldr	r4, [r0, r5]
+		LSL	R5, R3, #1		@ R5 <- i*2
+2000006c:	005d      	lsls	r5, r3, #1
+		STRH	R4, [R1, R5]		@ R4  ->dst[i] eller R4  -> [&dst[0] + i*2]
+2000006e:	534c      	strh	r4, [r1, r5]
+		ADD	R3, R3, #1		@ R3 <- R3+1 = i+1
+20000070:	3301      	adds	r3, #1
+		B	copyvecFOR		@ Loop
+20000072:	e7f7      	b.n	20000064 <copyvecFOR>
+
+20000074 <copyvecENDFOR>:
+
+copyvecENDFOR:	POP	{R4, R5, PC}		@ Återställ R4 och R5 samt returnera (utan returvärde)
+20000074:	bd30      	pop	{r4, r5, pc}
+
+20000076 <copyelements>:
+
+@ void copyelements(int src[], short dst[], int start, int end)
+copyelements:	PUSH	{R4, LR}
+20000076:	b510      	push	{r4, lr}
+
+		@src_start (R0)
+		LSL	R4, R2, #2	@ R4 <- start*4 (4 byte per int)
+20000078:	0094      	lsls	r4, r2, #2
+		ADD	R0, R0, R4	@ R0 <- src_start = &src + start*4
+2000007a:	1900      	adds	r0, r0, r4
+
+		@dst_start (R1)
+		LSL	R4, R2, #1	@ R4 <- start*2 (2 byte per short)
+2000007c:	0054      	lsls	r4, r2, #1
+		ADD	R1, R1, R4	@ R1 <- dst_start = &dst[0] + start*2
+2000007e:	1909      	adds	r1, r1, r4
+
+		@size (R2)
+		SUB	R2, R3, R2	@ R2 <- size = end - start;
+20000080:	1a9a      	subs	r2, r3, r2
+
+		BL	copyvec		@ copyvec(src_start, dst_start, size)
+20000082:	f7ff ffed 	bl	20000060 <copyvec>
+		POP	{R4, PC}
+20000086:	bd10      	pop	{r4, pc}
+		LDR R0, =src
+20000088:	20000040 	.word	0x20000040
+		LDR R1, =dst
+2000008c:	20000030 	.word	0x20000030
+
+20000090 <__bss_end__>:
+	...
+
+20001000 <heap_low>:
+	...
+
+20001800 <heap_top>:
+	...

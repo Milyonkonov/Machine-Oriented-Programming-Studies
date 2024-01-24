@@ -1,0 +1,65 @@
+
+1.39.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+20000000 <start>:
+start:	LDR	R0, =n
+20000000:	480d      	ldr	r0, [pc, #52]	@ (20000038 <result+0x4>)
+	LDR	R0, [R0]
+20000002:	6800      	ldr	r0, [r0, #0]
+	BL	sum
+20000004:	f000 f803 	bl	2000000e <sum>
+	LDR	R1, =result
+20000008:	490c      	ldr	r1, [pc, #48]	@ (2000003c <result+0x8>)
+	STR	R0, [R1]
+2000000a:	6008      	str	r0, [r1, #0]
+	B	start
+2000000c:	e7f8      	b.n	20000000 <start>
+
+2000000e <sum>:
+
+sum:	PUSH 	{LR}
+2000000e:	b500      	push	{lr}
+	CMP	R0, #0
+20000010:	2800      	cmp	r0, #0
+	BNE	sum1
+20000012:	d100      	bne.n	20000016 <sum1>
+	POP	{PC}
+20000014:	bd00      	pop	{pc}
+
+20000016 <sum1>:
+
+sum1:	PUSH	{R0}
+20000016:	b401      	push	{r0}
+	SUB	R0, R0, #1
+20000018:	3801      	subs	r0, #1
+	BL	sum
+2000001a:	f7ff fff8 	bl	2000000e <sum>
+	POP	{R1}
+2000001e:	bc02      	pop	{r1}
+	ADD	R0, R0, R1
+20000020:	1840      	adds	r0, r0, r1
+	POP	{PC}
+20000022:	bd00      	pop	{pc}
+	...
+
+20000030 <n>:
+20000030:	00000060 	.word	0x00000060
+
+20000034 <result>:
+20000034:	00000000 	.word	0x00000000
+start:	LDR	R0, =n
+20000038:	20000030 	.word	0x20000030
+	LDR	R1, =result
+2000003c:	20000034 	.word	0x20000034
+
+20000040 <__bss_end__>:
+	...
+
+20001000 <heap_low>:
+	...
+
+20001800 <heap_top>:
+	...

@@ -1,0 +1,46 @@
+
+1.27.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+20000000 <start>:
+start:	MOV	R0, #0
+20000000:	2000      	movs	r0, #0
+	LDR	R1, =ca
+20000002:	4907      	ldr	r1, [pc, #28]	@ (20000020 <ca+0xc>)
+
+20000004 <for>:
+for:	CMP	R0, #10
+20000004:	280a      	cmp	r0, #10
+	BGE	forend
+20000006:	da02      	bge.n	2000000e <forend>
+	STRB	R0, [R1, R0]
+20000008:	5408      	strb	r0, [r1, r0]
+	ADD	R0, R0, #1
+2000000a:	3001      	adds	r0, #1
+	B 	for
+2000000c:	e7fa      	b.n	20000004 <for>
+
+2000000e <forend>:
+
+forend:	MOV	R0, #5
+2000000e:	2005      	movs	r0, #5
+	MOV	R2, #0xFF
+20000010:	22ff      	movs	r2, #255	@ 0xff
+	STRB	R2, [R1, R0]
+20000012:	540a      	strb	r2, [r1, r0]
+
+20000014 <ca>:
+	...
+	LDR	R1, =ca
+20000020:	20000014 	.word	0x20000014
+
+20000024 <__bss_end__>:
+	...
+
+20001000 <heap_low>:
+	...
+
+20001800 <heap_top>:
+	...
