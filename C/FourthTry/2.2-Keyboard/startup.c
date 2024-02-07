@@ -142,21 +142,51 @@ void app_init (void)
 	portD->outputType.pin15 = OTYPE_OPEN_DRAIN;
 }
 
-void activateRow (char row)
+#define DRAIN 0
+#define OPEN 1
+void setRowState (int row, int newState)
 {
 	// TODO
 }
 
-unsigned char readColumn (char column)
+// Returns a column with a pressed button. 0xFF is returned with no button pressed.
+unsigned char readColumns ()
 {
-	// TODO
-	return 0;
+	// When a button is pressed it actually makes a connection to ground.
+	// Meaning that a (normally pulled-up to 1) button is read as 0 when pressed.
+	if (portD->inputData.pin8 == 0) { return 0; }
+	if (portD->inputData.pin9 == 0) { return 1; }
+	if (portD->inputData.pin10 == 0) { return 2; }
+	if (portD->inputData.pin11 == 0) { return 3; }
+	
+	return 0xFF;
 }
+
+unsigned char keyValue[4][4] = 
+{
+{ 1, 2,  3, 10},
+{ 4, 5,  6, 11},
+{ 7, 8,  9, 12},
+{14, 0, 15, 13}	
+};
 
 unsigned char keyb(void)
 {
+	unsigned char pressedKey = 0xFF;
+	for (int row = 0; row < 4; row++) {
+		setRowState(row, DRAIN);
+		
+		unsigned char columnPressed = readColumns ();
+		if (columnPressed != 0xFF)
+		{
+			pressedKey = keyValue[row][columnPressed];
+		}
+
+		setRowState(row, OPEN);
+	}
+	
 	// TODO
-	return 0xFF;
+	return pressedKey;
 }
 
 void out7Seg (unsigned char c)
