@@ -2,6 +2,8 @@
 <CodeLite_Workspace Name="FourthTry" Database="" Version="10000">
   <Project Name="basic_io" Path="basic_io/basic_io.project" Active="No"/>
   <Project Name="2" Path="2.2-Keyboard/2.project" Active="No"/>
+  <Project Name="2" Path="2.2-Keyboard-without-structs/2.project" Active="No"/>
+  <Project Name="keypad" Path="keypad/keypad.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug">
       <Environment/>
@@ -14,6 +16,9 @@
       <Project Name="3.3.1" ConfigName="Debug"/>
       <Project Name="2.2-Keyboard" ConfigName="Debug"/>
       <Project Name="2.2-Keyboard" ConfigName="Debug"/>
+      <Project Name="2.2-Keyboard-without-structs" ConfigName="Debug"/>
+      <Project Name="2.2-Keyboard-without-structs" ConfigName="Debug"/>
+      <Project Name="keypad" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release">
       <Environment/>
@@ -26,6 +31,9 @@
       <Project Name="3.3.1" ConfigName="Release"/>
       <Project Name="2.2-Keyboard" ConfigName="Release"/>
       <Project Name="2.2-Keyboard" ConfigName="Release"/>
+      <Project Name="2.2-Keyboard-without-structs" ConfigName="Release"/>
+      <Project Name="2.2-Keyboard-without-structs" ConfigName="Release"/>
+      <Project Name="keypad" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

@@ -2,13 +2,13 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Release
-ProjectName            :=basic_io
-ConfigurationName      :=Release
-WorkspaceConfiguration :=Release
-WorkspacePath          :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry
-ProjectPath            :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry/basic_io
-IntermediateDirectory  :=../build-$(WorkspaceConfiguration)/basic_io
+## Debug
+ProjectName            :=keypad
+ConfigurationName      :=Debug
+WorkspaceConfiguration :=Debug
+WorkspacePath          :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry
+ProjectPath            :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry/keypad
+IntermediateDirectory  :=../build-$(WorkspaceConfiguration)/keypad
 OutDir                 :=$(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
@@ -29,9 +29,9 @@ OutputSwitch           :=-o
 LibraryPathSwitch      :=-L
 PreprocessorSwitch     :=-D
 SourceSwitch           :=-c 
-OutputDirectory        :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry/build-$(WorkspaceConfiguration)/bin
+OutputDirectory        :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry/build-$(WorkspaceConfiguration)/bin
 OutputFile             :=..\build-$(WorkspaceConfiguration)\bin\$(ProjectName).exe
-Preprocessors          :=$(PreprocessorSwitch)NDEBUG 
+Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
 PreprocessOnlySwitch   :=-E
@@ -54,8 +54,8 @@ LibPath                := $(LibraryPathSwitch).
 AR       := D:/Studies/Machine-Oriented-Programming/Compilers/gcc-arm/bin/arm-none-eabi-ar.exe rcu
 CXX      := D:/Studies/Machine-Oriented-Programming/Compilers/gcc-arm/bin/arm-none-eabi-g++.exe
 CC       := D:/Studies/Machine-Oriented-Programming/Compilers/gcc-arm/bin/arm-none-eabi-gcc.exe
-CXXFLAGS :=  -O2 -W $(Preprocessors)
-CFLAGS   :=  -g -O2 -w -mthumb -march=armv6-m -mfloat-abi=soft -std=c99 --specs=nano.specs $(Preprocessors)
+CXXFLAGS :=  -g -O0 -W $(Preprocessors)
+CFLAGS   :=  -g -O0 -w -mthumb -march=armv6-m -mfloat-abi=soft -std=c99 --specs=nano.specs $(Preprocessors)
 ASFLAGS  := 
 AS       := D:/Studies/Machine-Oriented-Programming/Compilers/gcc-arm/bin/arm-none-eabi-as.exe
 
@@ -66,6 +66,7 @@ AS       := D:/Studies/Machine-Oriented-Programming/Compilers/gcc-arm/bin/arm-no
 CodeLiteDir:=D:\Studies\Machine-Oriented-Programming\CodeLite
 TOOLDIR:=D:\Studies\Machine-Oriented-Programming\Compilers
 ARM_GCC_VERSION:=12.3.1
+ARM_V6LIB:=$(TOOLDIR)/gcc-arm/arm-none-eabi/lib/thumb/v6-m/nofp
 ARM_GCC_V6LIB:=$(TOOLDIR)/gcc-arm/lib/gcc/arm-none-eabi/$(ARM_GCC_VERSION)/thumb/v6-m/nofp
 ARM_M4SFPLIB:=$(TOOLDIR)/gcc-arm/arm-none-eabi/lib/thumb/v7e-m+fp/softfp
 ARM_GCC_M4SFPLIB:=$(TOOLDIR)/gcc-arm/lib/gcc/arm-none-eabi/$(ARM_GCC_VERSION)/thumb/v7e-m+fp/softfp
@@ -109,7 +110,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/startup.c$(ObjectSuffix): startup.c $(IntermediateDirectory)/startup.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry/basic_io/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry/keypad/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/startup.c$(DependSuffix): startup.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/startup.c$(ObjectSuffix) -MF$(IntermediateDirectory)/startup.c$(DependSuffix) -MM startup.c
 

@@ -3,12 +3,12 @@
 ## any manual changes will be erased      
 ##
 ## Release
-ProjectName            :=basic_io
+ProjectName            :=keypad
 ConfigurationName      :=Release
 WorkspaceConfiguration :=Release
 WorkspacePath          :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry
-ProjectPath            :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry/basic_io
-IntermediateDirectory  :=../build-$(WorkspaceConfiguration)/basic_io
+ProjectPath            :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry/keypad
+IntermediateDirectory  :=../build-$(WorkspaceConfiguration)/keypad
 OutDir                 :=$(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
@@ -109,7 +109,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/startup.c$(ObjectSuffix): startup.c $(IntermediateDirectory)/startup.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry/basic_io/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FourthTry/keypad/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/startup.c$(DependSuffix): startup.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/startup.c$(ObjectSuffix) -MF$(IntermediateDirectory)/startup.c$(DependSuffix) -MM startup.c
 
