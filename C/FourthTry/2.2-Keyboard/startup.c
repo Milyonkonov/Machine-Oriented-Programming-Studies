@@ -177,21 +177,19 @@ unsigned char keyValue[4][4] =
 
 unsigned char keyb(void)
 {
-	unsigned char pressedKey = 0xFF;
 	for (int row = 0; row < 4; row++) {
 		setRowState(row, DRAIN);
 		
 		unsigned char columnPressed = readColumns ();
 		if (columnPressed != 0xFF)
 		{
-			pressedKey = keyValue[row][columnPressed];
+			return keyValue[row][columnPressed];
 		}
 
 		setRowState(row, OPEN);
 	}
 	
-	// TODO
-	return pressedKey;
+	return 0xFF;
 }
 
 void out7Seg (unsigned char c)
