@@ -1,5 +1,3 @@
-#define GPIO_D 0x40020C00
-
 __attribute__((naked)) 
 __attribute__((section (".start_section")) )
 void startup ( void )
@@ -8,11 +6,6 @@ __asm__ volatile(" LDR R0,=0x2001C000\n");		/* set stack */
 __asm__ volatile(" MOV SP,R0\n");
 __asm__ volatile(" BL main\n");					/* call main */
 __asm__ volatile(".L1: B .L1\n");				/* never return */
-}
-
-void app_init (void)
-{
-	// TODO
 }
 
 typedef struct 
@@ -77,26 +70,30 @@ typedef TwoBitsPerPin PullUpPullDownMap;
 #define PUPD_PULL_DOWN 0b10
 #define PUPD_RESERVED 0B11
 
-// Could be even more defined but I already spent 3 hours on this...
 typedef struct
 {
+	// Could be even more defined but I already spent 3 hours on this...
 	union {
 		unsigned int MODER;
+		struct { unsigned short MODER_LOW, MODER_HIGH; };
 		PortModeMap mode;
 	};
 	
 	union {
 		unsigned short OTYPER;
+		struct { unsigned char OTYPER_LOW, OTYPER_HIGH; };
 		OutputTypeMap outputType;
 	};
 	
 	union {
 		unsigned int OSPEEDR;
+		struct { unsigned short OSPEEDR_LOW, OSPEEDR_HIGH; };
 		OutputSpeedMap outputSpeed;
 	};
 	
 	union {
 		unsigned int PUPDR;
+		struct { unsigned short PUPDR_LOW, PUPDR_HIGH; };
 		PullUpPullDownMap pullUpPullDown;
 	};
 	
@@ -115,6 +112,35 @@ typedef struct
 	};
 }
 GPIO;
+
+#define GPIO_D 0x40020C00
+GPIO* portD = (GPIO*) GPIO_D; 
+
+void app_init (void)
+{
+	portD->MODER_LOW = 0x55;	// D0-D7 as output for 7-segment display.
+	portD->OTYPER_LOW = 0;		// D0-D7 as push-pull.
+	
+	// Lower nibble of higher byte, the columns, are input with pull-up.
+	portD->mode.pin8 = MODE_INPUT;
+	portD->mode.pin9 = MODE_INPUT;
+	portD->mode.pin10 = MODE_INPUT;
+	portD->mode.pin11 = MODE_INPUT;
+	portD->pullUpPullDown.pin8 = PUPD_PULL_UP;
+	portD->pullUpPullDown.pin9 = PUPD_PULL_UP;
+	portD->pullUpPullDown.pin10 = PUPD_PULL_UP;
+	portD->pullUpPullDown.pin11 = PUPD_PULL_UP;
+	
+	// Higher nibble of higher byte, the rows, are output in open-drain.
+	portD->mode.pin12 = MODE_OUTPUT;
+	portD->mode.pin13 = MODE_OUTPUT;
+	portD->mode.pin14 = MODE_OUTPUT;
+	portD->mode.pin15 = MODE_OUTPUT;
+	portD->outputType.pin12 = OTYPE_OPEN_DRAIN;
+	portD->outputType.pin13 = OTYPE_OPEN_DRAIN;
+	portD->outputType.pin14 = OTYPE_OPEN_DRAIN;
+	portD->outputType.pin15 = OTYPE_OPEN_DRAIN;
+}
 
 void activateRow (char row)
 {
