@@ -1,7 +1,5 @@
-/*
- * 	startup.c
- *
- */
+#define GPIO_D 0x40020C00
+
 __attribute__((naked)) 
 __attribute__((section (".start_section")) )
 void startup ( void )
@@ -12,7 +10,13 @@ __asm__ volatile(" BL main\n");					/* call main */
 __asm__ volatile(".L1: B .L1\n");				/* never return */
 }
 
-typedef struct {
+void app_init (void)
+{
+	// TODO
+}
+
+typedef struct 
+{
 	unsigned char pin0 : 2;
 	unsigned char pin1 : 2;
 	unsigned char pin2 : 2;
@@ -32,7 +36,8 @@ typedef struct {
 }
 TwoBitsPerPin;
 
-typedef struct {
+typedef struct 
+{
 	unsigned char pin0 : 1;
 	unsigned char pin1 : 1;
 	unsigned char pin2 : 1;
@@ -72,7 +77,9 @@ typedef TwoBitsPerPin PullUpPullDownMap;
 #define PUPD_PULL_DOWN 0b10
 #define PUPD_RESERVED 0B11
 
-typedef struct {
+// Could be even more defined but I already spent 3 hours on this...
+typedef struct
+{
 	union {
 		unsigned int MODER;
 		PortModeMap mode;
@@ -95,6 +102,7 @@ typedef struct {
 	
 	union {
 		unsigned short IDR;
+		struct { unsigned char IDR_LOW, IDR_HIGH; };
 		OneBitPerPin inputData;
 	};
 	
@@ -102,16 +110,40 @@ typedef struct {
 	
 	union {
 		unsigned short ODR;
+		struct { unsigned char ODR_LOW, ODR_HIGH; };
 		OneBitPerPin outputData;
 	};
 }
 GPIO;
 
-GPIO dogly;
+void activateRow (char row)
+{
+	// TODO
+}
+
+unsigned char readColumn (char column)
+{
+	// TODO
+	return 0;
+}
+
+unsigned char keyb(void)
+{
+	// TODO
+	return 0xFF;
+}
+
+void out7Seg (unsigned char c)
+{
+	// TODO
+}
 
 int main(void)
 {
-	dogly.IDR = 2;
-	dogly.mode.pin0 = 1;
+	app_init();
+	while(1)
+	{
+		out7Seg(keyb());
+	}
 }
 
