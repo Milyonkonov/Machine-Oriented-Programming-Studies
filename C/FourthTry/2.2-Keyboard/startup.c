@@ -144,9 +144,14 @@ void app_init (void)
 
 #define DRAIN 0
 #define OPEN 1
+
+// Changes the state of a single row to newState.
 void setRowState (int row, int newState)
 {
-	// TODO
+	if (row == 0) 		{portD->outputData.pin12 = newState; }
+	else if (row == 1) 	{portD->outputData.pin13 = newState; }
+	else if (row == 2) 	{portD->outputData.pin14 = newState; }
+	else if (row == 3) 	{portD->outputData.pin15 = newState; }
 }
 
 // Returns a column with a pressed button. 0xFF is returned with no button pressed.
