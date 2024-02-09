@@ -1,7 +1,3 @@
-// !!!!!REMOVE #DEFINE SIMULATOR WHEN BUILDING FOR REAL HARDWARE!!!!!
-//#define SIMULATOR 0
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 __attribute__((naked)) 
 __attribute__((section (".start_section")) )
 void startup ( void )
@@ -125,35 +121,30 @@ void app_init (void)
 	portD->MODER_LOW = 0x5555;	// D0-D7 as output for 7-segment display.
 	portD->OTYPER_LOW = 0;		// D0-D7 as push-pull.
 	
-	// Lower nibble of higher byte, the columns, are input with pull-up.
+	// Lower nibble of higher byte, the columns, are input without pull-up since it's broken on simulator.
 	portD->mode.pin8 = MODE_INPUT;
 	portD->mode.pin9 = MODE_INPUT;
 	portD->mode.pin10 = MODE_INPUT;
 	portD->mode.pin11 = MODE_INPUT;
+	/*
 	portD->pullUpPullDown.pin8 = PUPD_PULL_UP;
 	portD->pullUpPullDown.pin9 = PUPD_PULL_UP;
 	portD->pullUpPullDown.pin10 = PUPD_PULL_UP;
 	portD->pullUpPullDown.pin11 = PUPD_PULL_UP;
+	*/
 	
 	// Higher nibble of higher byte, the rows, are output in open-drain.
 	portD->mode.pin12 = MODE_OUTPUT;
 	portD->mode.pin13 = MODE_OUTPUT;
 	portD->mode.pin14 = MODE_OUTPUT;
 	portD->mode.pin15 = MODE_OUTPUT;
-	// Simulator doesn't understand pull-up :(
-	#ifdef SIMULATOR
-		portD->ODR_HIGH |= 0xF0;
-	#endif
-	#ifndef SIMULATOR
-		portD->outputType.pin12 = OTYPE_OPEN_DRAIN;
-		portD->outputType.pin13 = OTYPE_OPEN_DRAIN;
-		portD->outputType.pin14 = OTYPE_OPEN_DRAIN;
-		portD->outputType.pin15 = OTYPE_OPEN_DRAIN;
-	#endif
-}
+	// Simulator doesn't understand pull-up so we have to use push-pull (which would short output pins, bruh)
+	portD->outputType.pin12 = OTYPE_PUSH_PULL;
+	portD->outputType.pin13 = OTYPE_PUSH_PULL;
+	portD->outputType.pin14 = OTYPE_PUSH_PULL;
+	portD->outputType.pin15 = OTYPE_PUSH_PULL;
 
-#define DRAIN 0
-#define OPEN 1
+}
 
 // Changes the state of a single row to newState.
 void setRowState (int row, int newState)
@@ -167,12 +158,11 @@ void setRowState (int row, int newState)
 // Returns a column with a pressed button. 0xFF is returned with no button pressed.
 unsigned char readColumns ()
 {
-	// When a button is pressed it actually makes a connection to ground.
-	// Meaning that a (normally pulled-up to 1) button is read as 0 when pressed.
-	if (portD->inputData.pin8 == 0) { return 0; }
-	if (portD->inputData.pin9 == 0) { return 1; }
-	if (portD->inputData.pin10 == 0) { return 2; }
-	if (portD->inputData.pin11 == 0) { return 3; }
+	// In the simulator we actually want to look for 1's in the IDR, since we don't have pull-up.
+	if (portD->inputData.pin8 == 1) { return 0; }
+	if (portD->inputData.pin9 == 1) { return 1; }
+	if (portD->inputData.pin10 == 1) { return 2; }
+	if (portD->inputData.pin11 == 1) { return 3; }
 	
 	return 0xFF;
 }
@@ -189,9 +179,10 @@ unsigned char keyb(void)
 {
 	for (int row = 0; row < 4; row++) {
 		
-		setRowState(row, DRAIN);
+		// setRowState in the opposite order from real hardware, since we have to read the 1's without pull-up...
+		setRowState(row, 1);
 		unsigned char columnPressed = readColumns ();
-		setRowState(row, OPEN);
+		setRowState(row, 0);
 		
 		if (columnPressed != 0xFF)
 		{

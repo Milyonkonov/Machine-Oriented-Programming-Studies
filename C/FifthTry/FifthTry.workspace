@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="FifthTry" Database="" Version="10000">
-  <Project Name="keypad_simulator" Path="keypad/keypad.project" Active="No"/>
-  <Project Name="keypad_hardware" Path="keypad_hardware/keypad_hardware.project" Active="Yes"/>
+  <Project Name="keypad_simulator" Path="keypad/keypad.project" Active="Yes"/>
+  <Project Name="keypad_hardware" Path="keypad_hardware/keypad_hardware.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug">
       <Environment/>
