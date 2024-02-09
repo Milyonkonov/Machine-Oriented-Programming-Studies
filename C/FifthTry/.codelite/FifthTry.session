@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Session Name="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\FifthTry.workspace">
-  <int Value="0" Name="m_selectedTab"/>
+  <int Value="1" Name="m_selectedTab"/>
   <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\FifthTry.workspace" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
+      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad_hardware\startup.c" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="4" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
       <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad\startup.c" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="13" Name="CurrentLine"/>
+      <int Value="12" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
@@ -27,7 +34,7 @@
       <bool Value="1" Name="is_enabled"/>
       <long Value="0" Name="ignore_number"/>
       <wxString Value="" Name="conditions"/>
-      <int Value="1" Name="origin"/>
+      <int Value="0" Name="origin"/>
     </SerializedObject>
     <SerializedObject Name="Breakpoint1">
       <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad\startup.c" Name="file"/>
@@ -43,7 +50,7 @@
       <bool Value="1" Name="is_enabled"/>
       <long Value="0" Name="ignore_number"/>
       <wxString Value="" Name="conditions"/>
-      <int Value="1" Name="origin"/>
+      <int Value="0" Name="origin"/>
     </SerializedObject>
   </SerializedObject>
   <wxString Value="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.inc;*.mm;*.m;*.xrc;*.plist;*.txt" Name="m_findInFilesMask"/>
