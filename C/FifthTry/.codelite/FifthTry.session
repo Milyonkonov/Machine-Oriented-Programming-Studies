@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Session Name="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\FifthTry.workspace">
-  <int Value="1" Name="m_selectedTab"/>
+  <int Value="2" Name="m_selectedTab"/>
   <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\FifthTry.workspace" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
-      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad_hardware\startup.c" Name="FileName"/>
-      <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="4" Name="CurrentLine"/>
+      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad\startup.c" Name="FileName"/>
+      <int Value="59" Name="FirstVisibleLine"/>
+      <int Value="128" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds">
+        <IntVectorItem Value="47"/>
+        <IntVectorItem Value="56"/>
+        <IntVectorItem Value="67"/>
+        <IntVectorItem Value="75"/>
+        <IntVectorItem Value="92"/>
+      </IntVector>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad\GPIO-verbose.h" Name="FileName"/>
+      <int Value="67" Name="FirstVisibleLine"/>
+      <int Value="105" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad\startup.c" Name="FileName"/>
+      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad_hardware\startup.c" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="12" Name="CurrentLine"/>
+      <int Value="10" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
   </TabInfoArray>
   <SerializedObject Name="m_breakpoints">
-    <long Value="2" Name="Count"/>
+    <long Value="1" Name="Count"/>
     <SerializedObject Name="Breakpoint0">
       <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad\startup.c" Name="file"/>
-      <int Value="142" Name="lineno"/>
+      <int Value="126" Name="lineno"/>
       <wxString Value="" Name="function_name"/>
       <wxString Value="" Name="memory_address"/>
       <int Value="1" Name="bp_type"/>
@@ -34,23 +47,7 @@
       <bool Value="1" Name="is_enabled"/>
       <long Value="0" Name="ignore_number"/>
       <wxString Value="" Name="conditions"/>
-      <int Value="0" Name="origin"/>
-    </SerializedObject>
-    <SerializedObject Name="Breakpoint1">
-      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad\startup.c" Name="file"/>
-      <int Value="192" Name="lineno"/>
-      <wxString Value="" Name="function_name"/>
-      <wxString Value="" Name="memory_address"/>
-      <int Value="1" Name="bp_type"/>
-      <int Value="0" Name="watchpoint_type"/>
-      <wxString Value="" Name="watchpt_data"/>
-      <CData Name="commandlist"/>
-      <bool Value="0" Name="regex"/>
-      <bool Value="0" Name="is_temp"/>
-      <bool Value="1" Name="is_enabled"/>
-      <long Value="0" Name="ignore_number"/>
-      <wxString Value="" Name="conditions"/>
-      <int Value="0" Name="origin"/>
+      <int Value="1" Name="origin"/>
     </SerializedObject>
   </SerializedObject>
   <wxString Value="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.inc;*.mm;*.m;*.xrc;*.plist;*.txt" Name="m_findInFilesMask"/>
