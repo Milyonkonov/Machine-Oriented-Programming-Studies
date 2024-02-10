@@ -1,3 +1,4 @@
+#define SIMULATOR 1
 __attribute__((naked)) __attribute__((section (".start_section")) )
 void startup ( void )
 {
@@ -213,6 +214,7 @@ void display_entry_mode_set(int increment_decrement, int shift_address_buffer)
 
 void ascii_gotoxy(int x, int y)
 {
+	await_display_ready();
 	unsigned char address_set_command = 0x80;
 	x--;
 	y--;
