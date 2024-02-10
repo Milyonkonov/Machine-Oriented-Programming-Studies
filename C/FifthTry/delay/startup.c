@@ -8,26 +8,9 @@ __asm__ volatile(" BL main\n");					/* call main */
 __asm__ volatile(".L1: B .L1\n");				/* never return */
 }
 
-typedef struct 
-{
-	union {
-		unsigned int CTRL;
-		struct {
-			unsigned int ENABLE : 1;
-			unsigned int TICKINT : 1;
-			unsigned int CLKSOURCE : 1;
-			unsigned int unused0 : 13;
-			volatile unsigned int COUNTFLAG :1;
-		};
-	};
-	
-	unsigned int LOAD;
-	
-	unsigned int VAL;
-}
-SysTick;
-
 #define GPIO_E 0x40021000
+
+#include "systick.h"
 
 #define STK_ADDRESS 0xE000E010
 SysTick* sysTick = (SysTick*)STK_ADDRESS;

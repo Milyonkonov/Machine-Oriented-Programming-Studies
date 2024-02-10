@@ -135,6 +135,7 @@ monitor restart</PostConnectCommands>
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
+    <File Name="systick.h"/>
     <File Name="GPIO-verbose.h"/>
     <File Name="startup.c"/>
   </VirtualDirectory>
