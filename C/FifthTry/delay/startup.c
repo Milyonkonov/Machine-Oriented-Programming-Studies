@@ -11,8 +11,6 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 #define GPIO_E 0x40021000
 
 #include "systick.h"
-
-#define STK_ADDRESS 0xE000E010
 SysTick* sysTick = (SysTick*)STK_ADDRESS;
 
 void set_bargraph(unsigned char state) 
