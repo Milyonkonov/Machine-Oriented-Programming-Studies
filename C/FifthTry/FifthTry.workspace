@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="FifthTry" Database="" Version="10000">
-  <Project Name="keypad_simulator" Path="keypad/keypad.project" Active="Yes"/>
+  <Project Name="keypad_simulator" Path="keypad/keypad.project" Active="No"/>
   <Project Name="keypad_hardware" Path="keypad_hardware/keypad_hardware.project" Active="No"/>
+  <Project Name="delay" Path="delay/delay.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug">
       <Environment/>
       <Project Name="keypad_simulator" ConfigName="Debug"/>
       <Project Name="keypad_hardware" ConfigName="Debug"/>
+      <Project Name="delay" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release">
       <Environment/>
       <Project Name="keypad_simulator" ConfigName="Release"/>
       <Project Name="keypad_hardware" ConfigName="Release"/>
+      <Project Name="delay" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
