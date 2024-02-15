@@ -3,12 +3,12 @@
 ## any manual changes will be erased      
 ##
 ## Debug
-ProjectName            :=asciidisplay
+ProjectName            :=flipflip_irq
 ConfigurationName      :=Debug
 WorkspaceConfiguration :=Debug
 WorkspacePath          :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry
-ProjectPath            :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry/asciidisplay
-IntermediateDirectory  :=../build-$(WorkspaceConfiguration)/asciidisplay
+ProjectPath            :=D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry/flipflip_irq
+IntermediateDirectory  :=../build-$(WorkspaceConfiguration)/flipflip_irq
 OutDir                 :=$(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
@@ -110,7 +110,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/startup.c$(ObjectSuffix): startup.c $(IntermediateDirectory)/startup.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry/asciidisplay/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "D:/Studies/Machine-Oriented-Programming/Work/Machine-Oriented-Programming-Studies/C/FifthTry/flipflip_irq/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/startup.c$(DependSuffix): startup.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/startup.c$(ObjectSuffix) -MF$(IntermediateDirectory)/startup.c$(DependSuffix) -MM startup.c
 

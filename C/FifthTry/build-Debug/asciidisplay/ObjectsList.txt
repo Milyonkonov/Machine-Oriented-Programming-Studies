@@ -1,0 +1,1 @@
+../build-Debug/asciidisplay/startup.c.o   

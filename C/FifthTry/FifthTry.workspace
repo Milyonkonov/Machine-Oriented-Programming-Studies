@@ -3,7 +3,8 @@
   <Project Name="keypad_simulator" Path="keypad/keypad.project" Active="No"/>
   <Project Name="keypad_hardware" Path="keypad_hardware/keypad_hardware.project" Active="No"/>
   <Project Name="delay" Path="delay/delay.project" Active="No"/>
-  <Project Name="asciidisplay" Path="asciidisplay/asciidisplay.project" Active="Yes"/>
+  <Project Name="asciidisplay" Path="asciidisplay/asciidisplay.project" Active="No"/>
+  <Project Name="flipflip_irq" Path="flipflip_irq/flipflip_irq.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug">
       <Environment/>
@@ -11,6 +12,7 @@
       <Project Name="keypad_hardware" ConfigName="Debug"/>
       <Project Name="delay" ConfigName="Debug"/>
       <Project Name="asciidisplay" ConfigName="Debug"/>
+      <Project Name="flipflip_irq" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release">
       <Environment/>
@@ -18,6 +20,7 @@
       <Project Name="keypad_hardware" ConfigName="Release"/>
       <Project Name="delay" ConfigName="Release"/>
       <Project Name="asciidisplay" ConfigName="Release"/>
+      <Project Name="flipflip_irq" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
