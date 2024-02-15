@@ -56,8 +56,8 @@ void delay_1mikro ()
 2000003a:	46c0      	nop			@ (mov r8, r8)
 2000003c:	46bd      	mov	sp, r7
 2000003e:	bd80      	pop	{r7, pc}
-20000040:	2000012c 	andcs	r0, r0, ip, lsr #2
-20000044:	20000138 	andcs	r0, r0, r8, lsr r1
+20000040:	20000134 	andcs	r0, r0, r4, lsr r1
+20000044:	20000140 	andcs	r0, r0, r0, asr #2
 
 20000048 <systick_irq_handler>:
 
@@ -101,9 +101,9 @@ void systick_irq_handler ()
 20000076:	46c0      	nop			@ (mov r8, r8)
 20000078:	46bd      	mov	sp, r7
 2000007a:	bd80      	pop	{r7, pc}
-2000007c:	20000138 	andcs	r0, r0, r8, lsr r1
-20000080:	20000128 	andcs	r0, r0, r8, lsr #2
-20000084:	2000012c 	andcs	r0, r0, ip, lsr #2
+2000007c:	20000140 	andcs	r0, r0, r0, asr #2
+20000080:	20000130 	andcs	r0, r0, r0, lsr r1
+20000084:	20000134 	andcs	r0, r0, r4, lsr r1
 
 20000088 <delay>:
 
@@ -125,7 +125,7 @@ void delay (unsigned int count)
 2000009e:	b002      	add	sp, #8
 200000a0:	bd80      	pop	{r7, pc}
 200000a2:	46c0      	nop			@ (mov r8, r8)
-200000a4:	20000128 	andcs	r0, r0, r8, lsr #2
+200000a4:	20000130 	andcs	r0, r0, r0, lsr r1
 
 200000a8 <init_app>:
 
@@ -152,11 +152,11 @@ void init_app ()
 200000c2:	46bd      	mov	sp, r7
 200000c4:	bd80      	pop	{r7, pc}
 200000c6:	46c0      	nop			@ (mov r8, r8)
-200000c8:	20000134 	andcs	r0, r0, r4, lsr r1
+200000c8:	2000013c 	andcs	r0, r0, ip, lsr r1
 200000cc:	00005555 	andeq	r5, r0, r5, asr r5
 200000d0:	2001c03c 	andcs	ip, r1, ip, lsr r0
 200000d4:	20000049 	andcs	r0, r0, r9, asr #32
-200000d8:	2000012c 	andcs	r0, r0, ip, lsr #2
+200000d8:	20000134 	andcs	r0, r0, r4, lsr r1
 
 200000dc <main>:
 
@@ -166,25 +166,24 @@ int main (void)
 200000de:	af00      	add	r7, sp, #0
 	init_app();
 200000e0:	f7ff ffe2 	bl	200000a8 <init_app>
-	gpioD->ODR_LOW = 0;
-200000e4:	4b0d      	ldr	r3, [pc, #52]	@ (2000011c <main+0x40>)
-200000e6:	681b      	ldr	r3, [r3, #0]
-200000e8:	2200      	movs	r2, #0
-200000ea:	751a      	strb	r2, [r3, #20]
 	delay(DELAY_COUNT);
-200000ec:	4b0c      	ldr	r3, [pc, #48]	@ (20000120 <main+0x44>)
-200000ee:	681b      	ldr	r3, [r3, #0]
-200000f0:	0018      	movs	r0, r3
-200000f2:	f7ff ffc9 	bl	20000088 <delay>
-	gpioD->ODR_LOW = 0xFF;
-200000f6:	4b09      	ldr	r3, [pc, #36]	@ (2000011c <main+0x40>)
-200000f8:	681b      	ldr	r3, [r3, #0]
-200000fa:	22ff      	movs	r2, #255	@ 0xff
+200000e4:	4b0f      	ldr	r3, [pc, #60]	@ (20000124 <main+0x48>)
+200000e6:	681b      	ldr	r3, [r3, #0]
+200000e8:	0018      	movs	r0, r3
+200000ea:	f7ff ffcd 	bl	20000088 <delay>
+	gpioD->ODR_LOW = ~(gpioD->ODR_LOW);
+200000ee:	4b0e      	ldr	r3, [pc, #56]	@ (20000128 <main+0x4c>)
+200000f0:	681b      	ldr	r3, [r3, #0]
+200000f2:	7d1a      	ldrb	r2, [r3, #20]
+200000f4:	4b0c      	ldr	r3, [pc, #48]	@ (20000128 <main+0x4c>)
+200000f6:	681b      	ldr	r3, [r3, #0]
+200000f8:	43d2      	mvns	r2, r2
+200000fa:	b2d2      	uxtb	r2, r2
 200000fc:	751a      	strb	r2, [r3, #20]
 	while (1)
 	{
 		if (systick_flag)
-200000fe:	4b09      	ldr	r3, [pc, #36]	@ (20000124 <main+0x48>)
+200000fe:	4b0b      	ldr	r3, [pc, #44]	@ (2000012c <main+0x50>)
 20000100:	681b      	ldr	r3, [r3, #0]
 20000102:	2b00      	cmp	r3, #0
 20000104:	d100      	bne.n	20000108 <main+0x2c>
@@ -196,34 +195,38 @@ int main (void)
 		// Code that can be ran in the delay time can be placed here.
 	}
 	// Code that runs after the delay is done can be placed here.
-	gpioD->ODR_LOW = 0;
-2000010a:	4b04      	ldr	r3, [pc, #16]	@ (2000011c <main+0x40>)
+	DELAY_COUNT += 20;
+2000010a:	4b06      	ldr	r3, [pc, #24]	@ (20000124 <main+0x48>)
 2000010c:	681b      	ldr	r3, [r3, #0]
-2000010e:	2200      	movs	r2, #0
-20000110:	751a      	strb	r2, [r3, #20]
-20000112:	2300      	movs	r3, #0
-20000114:	0018      	movs	r0, r3
-20000116:	46bd      	mov	sp, r7
-20000118:	bd80      	pop	{r7, pc}
-2000011a:	46c0      	nop			@ (mov r8, r8)
-2000011c:	20000134 	andcs	r0, r0, r4, lsr r1
-20000120:	20000130 	andcs	r0, r0, r0, lsr r1
-20000124:	2000012c 	andcs	r0, r0, ip, lsr #2
+2000010e:	3314      	adds	r3, #20
+20000110:	001a      	movs	r2, r3
+20000112:	4b04      	ldr	r3, [pc, #16]	@ (20000124 <main+0x48>)
+20000114:	601a      	str	r2, [r3, #0]
+	main();
+20000116:	f7ff ffe1 	bl	200000dc <main>
+2000011a:	2300      	movs	r3, #0
+2000011c:	0018      	movs	r0, r3
+2000011e:	46bd      	mov	sp, r7
+20000120:	bd80      	pop	{r7, pc}
+20000122:	46c0      	nop			@ (mov r8, r8)
+20000124:	20000138 	andcs	r0, r0, r8, lsr r1
+20000128:	2000013c 	andcs	r0, r0, ip, lsr r1
+2000012c:	20000134 	andcs	r0, r0, r4, lsr r1
 
-20000128 <delay_count>:
-20000128:	00000000 	andeq	r0, r0, r0
+20000130 <delay_count>:
+20000130:	00000000 	andeq	r0, r0, r0
 
-2000012c <systick_flag>:
-2000012c:	00000000 	andeq	r0, r0, r0
+20000134 <systick_flag>:
+20000134:	00000000 	andeq	r0, r0, r0
 
-20000130 <DELAY_COUNT>:
-20000130:	00000064 	andeq	r0, r0, r4, rrx
+20000138 <DELAY_COUNT>:
+20000138:	00000064 	andeq	r0, r0, r4, rrx
 
-20000134 <gpioD>:
-20000134:	40020c00 	andmi	r0, r2, r0, lsl #24
+2000013c <gpioD>:
+2000013c:	40020c00 	andmi	r0, r2, r0, lsl #24
 
-20000138 <systick>:
-20000138:	e000e010 	and	lr, r0, r0, lsl r0
+20000140 <systick>:
+20000140:	e000e010 	and	lr, r0, r0, lsl r0
 
 Disassembly of section .debug_info:
 
@@ -239,7 +242,7 @@ Disassembly of section .debug_info:
   24:	6a090000 	bvs	24002c <startup-0x1fdbffd4>
   28:	0c000000 	stceq	0, cr0, [r0], {-0}
   2c:	0000370e 	andeq	r3, r0, lr, lsl #14
-  30:	30030500 	andcc	r0, r3, r0, lsl #10
+  30:	38030500 	stmdacc	r3, {r8, sl}
   34:	0a200001 	beq	800040 <startup-0x1f7fffc0>
   38:	00ff0704 	rscseq	r0, pc, r4, lsl #14
   3c:	370f0000 	strcc	r0, [pc, -r0]
@@ -553,27 +556,27 @@ Disassembly of section .debug_info:
  50c:	0000a009 	andeq	sl, r0, r9
  510:	1d071600 	stcne	6, cr1, [r7, #-0]
  514:	05000005 	streq	r0, [r0, #-5]
- 518:	00013403 	andeq	r3, r1, r3, lsl #8
+ 518:	00013c03 	andeq	r3, r1, r3, lsl #24
  51c:	04600c20 	strbteq	r0, [r0], #-3104	@ 0xfffff3e0
  520:	81090000 	mrshi	r0, (UNDEF: 9)
  524:	17000002 	strne	r0, [r0, -r2]
  528:	0005330a 	andeq	r3, r5, sl, lsl #6
- 52c:	38030500 	stmdacc	r3, {r8, sl}
+ 52c:	40030500 	andmi	r0, r3, r0, lsl #10
  530:	0c200001 	stceq	0, cr0, [r0], #-4
  534:	00000500 	andeq	r0, r0, r0, lsl #10
  538:	00011709 	andeq	r1, r1, r9, lsl #14
  53c:	370e1900 	strcc	r1, [lr, -r0, lsl #18]
  540:	05000000 	streq	r0, [r0, #-0]
- 544:	00012803 	andeq	r2, r1, r3, lsl #16
+ 544:	00013003 	andeq	r3, r1, r3
  548:	029b0920 	addseq	r0, fp, #32, 18	@ 0x80000
  54c:	0e1a0000 	cdpeq	0, 1, cr0, cr10, cr0, {0}
  550:	00000037 	andeq	r0, r0, r7, lsr r0
- 554:	012c0305 			@ <UNDEFINED> instruction: 0x012c0305
+ 554:	01340305 	teqeq	r4, r5, lsl #6
  558:	a8112000 	ldmdage	r1, {sp}
  55c:	01000002 	tsteq	r0, r2
  560:	05700540 	ldrbeq	r0, [r0, #-1344]!	@ 0xfffffac0
  564:	00dc0000 	sbcseq	r0, ip, r0
- 568:	004c2000 	subeq	r2, ip, r0
+ 568:	00542000 	subseq	r2, r4, r0
  56c:	9c010000 	stcls	0, cr0, [r1], {-0}
  570:	69050412 	stmdbvs	r5, {r1, r4, sl}
  574:	0d00746e 	cfstrseq	mvf7, [r0, #-440]	@ 0xfffffe48
@@ -711,7 +714,7 @@ Disassembly of section .debug_aranges:
    8:	00040000 	andeq	r0, r4, r0
    c:	00000000 	andeq	r0, r0, r0
   10:	20000010 	andcs	r0, r0, r0, lsl r0
-  14:	00000118 	andeq	r0, r0, r8, lsl r1
+  14:	00000120 	andeq	r0, r0, r0, lsr #2
   18:	20000000 	andcs	r0, r0, r0
   1c:	0000000c 	andeq	r0, r0, ip
 	...
@@ -723,7 +726,7 @@ Disassembly of section .debug_rnglists:
    4:	00040005 	andeq	r0, r4, r5
    8:	00000000 	andeq	r0, r0, r0
    c:	00001007 	andeq	r1, r0, r7
-  10:	07029820 	streq	r9, [r2, -r0, lsr #16]
+  10:	0702a020 	streq	sl, [r2, -r0, lsr #32]
   14:	20000000 	andcs	r0, r0, r0
   18:	Address 0x18 is out of bounds.
 
@@ -731,7 +734,7 @@ Disassembly of section .debug_rnglists:
 Disassembly of section .debug_line:
 
 00000000 <.debug_line>:
-   0:	00000149 	andeq	r0, r0, r9, asr #2
+   0:	00000144 	andeq	r0, r0, r4, asr #2
    4:	00a80003 	adceq	r0, r8, r3
    8:	01020000 	mrseq	r0, (UNDEF: 2)
    c:	000d0efb 	strdeq	r0, [sp], -fp
@@ -804,18 +807,15 @@ Disassembly of section .debug_line:
  118:	25053002 	strcs	r3, [r5, #-2]
  11c:	2f0f0520 	svccs	0x000f0520
  120:	d93d0105 	ldmdble	sp!, {r0, r2, r8}
- 124:	052f0205 	streq	r0, [pc, #-517]!	@ ffffff27 <systick+0xdffffdef>
- 128:	11052f07 	tstne	r5, r7, lsl #30
- 12c:	2f02052e 	svccs	0x0002052e
- 130:	05590705 	ldrbeq	r0, [r9, #-1797]	@ 0xfffff8fb
- 134:	07052e11 	smladeq	r5, r1, lr, r2
- 138:	2e060531 	mcrcs	5, 0, r0, cr6, cr1, {1}
- 13c:	053e0405 	ldreq	r0, [lr, #-1029]!	@ 0xfffffbfb
- 140:	11052507 	tstne	r5, r7, lsl #10
- 144:	3d01052e 	cfstr32cc	mvfx0, [r1, #-184]	@ 0xffffff48
- 148:	01000a02 	tsteq	r0, r2, lsl #20
- 14c:	Address 0x14c is out of bounds.
-
+ 124:	2f2f0205 	svccs	0x002f0205
+ 128:	05591a05 	ldrbeq	r1, [r9, #-2565]	@ 0xfffff5fb
+ 12c:	11053c07 	tstne	r5, r7, lsl #24
+ 130:	3f07052e 	svccc	0x0007052e
+ 134:	052e0605 	streq	r0, [lr, #-1541]!	@ 0xfffff9fb
+ 138:	0e053e04 	cdpeq	14, 0, cr3, cr5, cr4, {0}
+ 13c:	67020525 	strvs	r0, [r2, -r5, lsr #10]
+ 140:	023d0105 	eorseq	r0, sp, #1073741825	@ 0x40000001
+ 144:	0101000a 	tsteq	r1, sl
 
 Disassembly of section .debug_str:
 
@@ -891,7 +891,7 @@ Disassembly of section .debug_str:
  110:	79547475 	ldmdbvc	r4, {r0, r2, r4, r5, r6, sl, ip, sp, lr}^
  114:	64006570 	strvs	r6, [r0], #-1392	@ 0xfffffa90
  118:	79616c65 	stmdbvc	r1!, {r0, r2, r5, r6, sl, fp, sp, lr}^
- 11c:	756f635f 	strbvc	r6, [pc, #-863]!	@ fffffdc5 <systick+0xdffffc8d>
+ 11c:	756f635f 	strbvc	r6, [pc, #-863]!	@ fffffdc5 <systick+0xdffffc85>
  120:	4d00746e 	cfstrsmi	mvf7, [r0, #-440]	@ 0xfffffe48
  124:	5245444f 	subpl	r4, r5, #1325400064	@ 0x4f000000
  128:	574f4c5f 	smlsldpl	r4, pc, pc, ip	@ <UNPREDICTABLE>
@@ -1128,7 +1128,7 @@ Disassembly of section .debug_frame:
   94:	00000018 	andeq	r0, r0, r8, lsl r0
   98:	00000000 	andeq	r0, r0, r0
   9c:	200000dc 	ldrdcs	r0, [r0], -ip
-  a0:	0000004c 	andeq	r0, r0, ip, asr #32
+  a0:	00000054 	andeq	r0, r0, r4, asr r0
   a4:	87080e41 	strhi	r0, [r8, -r1, asr #28]
   a8:	41018e02 	tstmi	r1, r2, lsl #28
   ac:	0000070d 	andeq	r0, r0, sp, lsl #14

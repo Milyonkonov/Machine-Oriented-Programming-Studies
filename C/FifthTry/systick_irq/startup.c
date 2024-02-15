@@ -64,9 +64,8 @@ void init_app ()
 int main (void)
 {
 	init_app();
-	gpioD->ODR_LOW = 0;
 	delay(DELAY_COUNT);
-	gpioD->ODR_LOW = 0xFF;
+	gpioD->ODR_LOW = ~(gpioD->ODR_LOW);
 	while (1)
 	{
 		if (systick_flag)
@@ -76,5 +75,6 @@ int main (void)
 		// Code that can be ran in the delay time can be placed here.
 	}
 	// Code that runs after the delay is done can be placed here.
-	gpioD->ODR_LOW = 0;
+	DELAY_COUNT += 20;
+	main();
 }
