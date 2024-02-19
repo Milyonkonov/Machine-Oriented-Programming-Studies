@@ -6,7 +6,8 @@
   <Project Name="asciidisplay" Path="asciidisplay/asciidisplay.project" Active="No"/>
   <Project Name="flipflip_irq" Path="flipflip_irq/flipflip_irq.project" Active="No"/>
   <Project Name="systick_irq" Path="systick_irq/systick_irq.project" Active="No"/>
-  <Project Name="LabThree" Path="LabThree/LabThree.project" Active="Yes"/>
+  <Project Name="LabThreeTaskTwo" Path="LabThreeTaskTwo/LabThreeTaskTwo.project" Active="Yes"/>
+  <Project Name="LabThreeTaskOne" Path="LabThreeTaskOne/LabThreeTaskOne.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug">
       <Environment/>
@@ -16,7 +17,8 @@
       <Project Name="asciidisplay" ConfigName="Debug"/>
       <Project Name="flipflip_irq" ConfigName="Debug"/>
       <Project Name="systick_irq" ConfigName="Debug"/>
-      <Project Name="LabThree" ConfigName="Debug"/>
+      <Project Name="LabThreeTaskTwo" ConfigName="Debug"/>
+      <Project Name="LabThreeTaskOne" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release">
       <Environment/>
@@ -26,7 +28,8 @@
       <Project Name="asciidisplay" ConfigName="Release"/>
       <Project Name="flipflip_irq" ConfigName="Release"/>
       <Project Name="systick_irq" ConfigName="Release"/>
-      <Project Name="LabThree" ConfigName="Release"/>
+      <Project Name="LabThreeTaskTwo" ConfigName="Release"/>
+      <Project Name="LabThreeTaskOne" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

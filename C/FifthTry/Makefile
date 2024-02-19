@@ -1,8 +1,8 @@
 .PHONY: clean All
 
 All:
-	@echo "----------Building project:[ LabThree - Debug ]----------"
-	@cd "LabThree" && "$(MAKE)" -f  "LabThree.mk" && "$(MAKE)" -f  "LabThree.mk" PostBuild
+	@echo "----------Building project:[ LabThreeTaskTwo - Debug ]----------"
+	@cd "LabThreeTaskTwo" && "$(MAKE)" -f  "LabThreeTaskTwo.mk" && "$(MAKE)" -f  "LabThreeTaskTwo.mk" PostBuild
 clean:
-	@echo "----------Cleaning project:[ LabThree - Debug ]----------"
-	@cd "LabThree" && "$(MAKE)" -f  "LabThree.mk" clean
+	@echo "----------Cleaning project:[ LabThreeTaskTwo - Debug ]----------"
+	@cd "LabThreeTaskTwo" && "$(MAKE)" -f  "LabThreeTaskTwo.mk" clean

@@ -14,14 +14,11 @@ __asm__ volatile(".L1: B .L1\n");				/* never return */
 #define VTOR_ADDRESS 0x2001C000
 
 GPIO* portE = (GPIO*) PORT_E_ADDRESS;
-
 SysTick* sysTick = (SysTick*) STK_ADDRESS;
 
-unsigned char state = 0;
 void InvertWave()
 {
-	portE->outputData.pin0 = state;
-	state ^= 1;
+	portE->outputData.pin0 ^= 1;
 }
 
 // I den här funktionen skall lägre byten av Port E förberedas för att lägga
@@ -55,10 +52,11 @@ void StopSquareWave()
 
 // Den här siffran skall sättas lämpligt för att ni skall kunna se den blinkande
 // lampan i simulatorn.
-#define PERIOD 10000
+#define PERIOD 1000
 
-int main() {
+void main() {
 	InitSquareWave();
+	InvertWave();
 	StartSquareWave(PERIOD); 
 	while(1) { /* Gör ingenting */ }
 	StopSquareWave(); 
