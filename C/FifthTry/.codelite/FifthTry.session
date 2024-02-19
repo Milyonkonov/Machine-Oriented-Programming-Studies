@@ -4,52 +4,29 @@
   <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\FifthTry.workspace" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
-      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\asciidisplay\startup.c" Name="FileName"/>
-      <int Value="54" Name="FirstVisibleLine"/>
-      <int Value="66" Name="CurrentLine"/>
+      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\systick_irq\startup.c" Name="FileName"/>
+      <int Value="53" Name="FirstVisibleLine"/>
+      <int Value="65" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds">
-        <IntVectorItem Value="74"/>
-        <IntVectorItem Value="82"/>
-        <IntVectorItem Value="105"/>
-        <IntVectorItem Value="124"/>
-        <IntVectorItem Value="133"/>
-        <IntVectorItem Value="147"/>
-        <IntVectorItem Value="157"/>
-        <IntVectorItem Value="175"/>
-        <IntVectorItem Value="182"/>
-        <IntVectorItem Value="193"/>
-        <IntVectorItem Value="204"/>
-        <IntVectorItem Value="215"/>
-        <IntVectorItem Value="226"/>
-      </IntVector>
+      <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\keypad\startup.c" Name="FileName"/>
-      <int Value="84" Name="FirstVisibleLine"/>
-      <int Value="0" Name="CurrentLine"/>
+      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\systick_irq\systick.h" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="19" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\systick_irq\GPIO-verbose.h" Name="FileName"/>
+      <int Value="18" Name="FirstVisibleLine"/>
+      <int Value="105" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
   </TabInfoArray>
   <SerializedObject Name="m_breakpoints">
-    <long Value="1" Name="Count"/>
-    <SerializedObject Name="Breakpoint0">
-      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\asciidisplay\startup.c" Name="file"/>
-      <int Value="251" Name="lineno"/>
-      <wxString Value="" Name="function_name"/>
-      <wxString Value="" Name="memory_address"/>
-      <int Value="1" Name="bp_type"/>
-      <int Value="0" Name="watchpoint_type"/>
-      <wxString Value="" Name="watchpt_data"/>
-      <CData Name="commandlist"/>
-      <bool Value="0" Name="regex"/>
-      <bool Value="0" Name="is_temp"/>
-      <bool Value="1" Name="is_enabled"/>
-      <long Value="0" Name="ignore_number"/>
-      <wxString Value="" Name="conditions"/>
-      <int Value="1" Name="origin"/>
-    </SerializedObject>
+    <long Value="0" Name="Count"/>
   </SerializedObject>
   <wxString Value="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.inc;*.mm;*.m;*.xrc;*.plist;*.txt" Name="m_findInFilesMask"/>
 </Session>
