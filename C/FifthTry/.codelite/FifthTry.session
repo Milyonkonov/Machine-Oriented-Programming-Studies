@@ -6,8 +6,8 @@
   <SerializedObject Name="m_breakpoints">
     <long Value="1" Name="Count"/>
     <SerializedObject Name="Breakpoint0">
-      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\LabThree\startup.c" Name="file"/>
-      <int Value="58" Name="lineno"/>
+      <wxString Value="D:\Studies\Machine-Oriented-Programming\Work\Machine-Oriented-Programming-Studies\C\FifthTry\LabThreeTaskTwo\startup.c" Name="file"/>
+      <int Value="307" Name="lineno"/>
       <wxString Value="" Name="function_name"/>
       <wxString Value="" Name="memory_address"/>
       <int Value="1" Name="bp_type"/>
@@ -19,7 +19,7 @@
       <bool Value="1" Name="is_enabled"/>
       <long Value="0" Name="ignore_number"/>
       <wxString Value="" Name="conditions"/>
-      <int Value="1" Name="origin"/>
+      <int Value="0" Name="origin"/>
     </SerializedObject>
   </SerializedObject>
   <wxString Value="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.inc;*.mm;*.m;*.xrc;*.plist;*.txt" Name="m_findInFilesMask"/>

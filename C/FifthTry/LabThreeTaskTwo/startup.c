@@ -7,9 +7,146 @@ __asm__ volatile(" BL main\n");					/* call main */
 __asm__ volatile(".L1: B .L1\n");				/* never return */
 }
 
-#include "GPIO-verbose.h"
-#include "systick.h"
-#include "EXTI.h"
+typedef struct 
+{
+	unsigned char pin0 : 2;
+	unsigned char pin1 : 2;
+	unsigned char pin2 : 2;
+	unsigned char pin3 : 2;
+	unsigned char pin4 : 2;
+	unsigned char pin5 : 2;
+	unsigned char pin6 : 2;
+	unsigned char pin7 : 2;
+	unsigned char pin8 : 2;
+	unsigned char pin9 : 2;
+	unsigned char pin10 : 2;
+	unsigned char pin11 : 2;
+	unsigned char pin12 : 2;
+	unsigned char pin13 : 2;
+	unsigned char pin14 : 2;
+	unsigned char pin15 : 2;
+}
+TwoBitsPerPin;
+
+typedef struct 
+{
+	unsigned char pin0 : 1;
+	unsigned char pin1 : 1;
+	unsigned char pin2 : 1;
+	unsigned char pin3 : 1;
+	unsigned char pin4 : 1;
+	unsigned char pin5 : 1;
+	unsigned char pin6 : 1;
+	unsigned char pin7 : 1;
+	unsigned char pin8 : 1;
+	unsigned char pin9 : 1;
+	unsigned char pin10 : 1;
+	unsigned char pin11 : 1;
+	unsigned char pin12 : 1;
+	unsigned char pin13 : 1;
+	unsigned char pin14 : 1;
+	unsigned char pin15 : 1;
+}
+OneBitPerPin;
+
+typedef TwoBitsPerPin PortModeMap;
+#define MODE_INPUT 0b00
+#define MODE_OUTPUT 0b01
+
+typedef OneBitPerPin OutputTypeMap;
+#define OTYPE_PUSH_PULL 0
+#define OTYPE_OPEN_DRAIN 1
+
+typedef TwoBitsPerPin OutputSpeedMap;
+#define OSPEED_LOW 0b00
+#define OSPEED_MEDIUM 0b01
+#define OSPEED_FAST 0b10
+#define OSPEED_HIGHERTHANFAST 0b11
+
+typedef TwoBitsPerPin PullUpPullDownMap;
+#define PUPD_FLOATING 0b00
+#define PUPD_PULL_UP 0b01
+#define PUPD_PULL_DOWN 0b10
+#define PUPD_RESERVED 0B11
+
+typedef volatile struct
+{
+	// Could be even more defined but I already spent 3 hours on this...
+	union {
+		unsigned int MODER;
+		struct { unsigned short MODER_LOW, MODER_HIGH; };
+		PortModeMap mode;
+	};
+	
+	union {
+		unsigned short OTYPER;
+		struct { unsigned char OTYPER_LOW, OTYPER_HIGH; };
+		OutputTypeMap outputType;
+	};
+	
+	union {
+		unsigned int OSPEEDR;
+		struct { unsigned short OSPEEDR_LOW, OSPEEDR_HIGH; };
+		OutputSpeedMap outputSpeed;
+	};
+	
+	union {
+		unsigned int PUPDR;
+		struct { unsigned short PUPDR_LOW, PUPDR_HIGH; };
+		PullUpPullDownMap pullUpPullDown;
+	};
+	
+	volatile union {
+		unsigned short IDR;
+		struct { unsigned char IDR_LOW, IDR_HIGH; };
+		OneBitPerPin inputData;
+	};
+	
+	unsigned short unused0;
+	
+	union {
+		unsigned short ODR;
+		struct { unsigned char ODR_LOW, ODR_HIGH; };
+		OneBitPerPin outputData;
+	};
+}
+GPIO;
+
+typedef struct 
+{
+	union {
+		unsigned int CTRL;
+		struct {
+			unsigned int ENABLE : 1;
+			unsigned int TICKINT : 1;
+			unsigned int CLKSOURCE : 1;
+			unsigned int unused0 : 13;
+			volatile unsigned int COUNTFLAG :1;
+		};
+	};
+	
+	unsigned int LOAD;
+	
+	volatile unsigned int VAL;
+}
+SysTick;
+
+#define STK_ADDRESS 0xE000E010
+#define CLK_SRC_ACTUAL 1
+#define CLK_SRC_EIGHTH 0
+
+typedef struct 
+{
+	unsigned int IMR;	// Interrupt Mask Register. (1=interrupt enabled, 0=interrupt disabled)
+	unsigned int EMR;	// Event Mask Register.
+	unsigned int RTSR; 	// Rising Trigger Selection Register.
+	unsigned int FTSR;	// Falling Trigger Selection Register.
+	unsigned int SWIER;	// Software Interrupt Event Register. Can be set to trigger interrupt programmatically.
+	unsigned int PR;	// Pending Register. Interrupt handlers MUST set a 1 here to acknowledge interrupt as complete!(!!)
+}
+EXTI;
+
+#define EXTI_ADDRESS 0x40013C00
 
 #define SYSCFG_ADDRESS 0x40013800
 #define PORT_E_ADDRESS 0x40021000
@@ -77,9 +214,12 @@ volatile unsigned char currently_pressed_key = 0xFF; // Global variabel som skal
 void KeyPressedHandler()
 {
 	exti->IMR = 0;		// Mask interrupts so the activating of the rows to read which key is pressed doesn't cause interrupts..?
+	
+	// keyb() activates each row sequentially to read which key is pressed, so all rows must be low when function is called.
 	portE->ODR_HIGH = 0;
 	currently_pressed_key = keyb();
-	portE->ODR_HIGH = 0xF0;
+	portE->ODR_HIGH = 0xF0;		// Activate all rows again to "listen" for keypress interrupts.
+	
 	exti->IMR |= 0b1111 << 8;	// Allow interrupts again
 	exti->PR |= 0b1111 << 8;	// Acknowledge interrupt as complete for all pins.
 }
